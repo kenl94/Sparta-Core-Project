@@ -5,7 +5,7 @@ $(document).ready(function(){
   var $table = $('#snakeBoard');
   var idCounter = 1;
   var colCounter = 0;
-
+  var score = 0;
   var direction = 'right'; // 'left', 'top', 'bottom'
   // Makes a grid of 400 squares on start-up
   $('#startGame').click(function(){
@@ -25,6 +25,12 @@ $(document).ready(function(){
 
     $(this).unbind('click');
 
+    var sec = 0;
+    function pad ( val ) { return val > 9 ? 'Timer : ' + val :'Timer: ' + "0" + val; }
+      setInterval( function(){
+        $("#timer").html(pad(++sec));
+    }, 1000);
+
     // Where the snake head spawns
     var snake = Math.floor(Math.random() * 401);
     var snakeArr = [];
@@ -41,7 +47,7 @@ $(document).ready(function(){
     var appleArr = [];
     // Loops 3 times to create a body of 3
     for (var i = 0; i < 1; i++) {
-      apple++;
+      // apple++;
       snakeArr.push(snake);
       $(`#${apple}`).css('background','red');
     }
@@ -56,8 +62,7 @@ $(document).ready(function(){
         // remove from tail
         $(`#${snakeArr[0]}`).css('background','transparent');
         snakeArr.splice(0,1);
-        console.log(direction);
-        console.log(snakeArr);
+        // console.log(snakeArr);
       }
       if (direction === 'right') {
         snake++;
@@ -66,7 +71,7 @@ $(document).ready(function(){
         // remove from tail as it leaves the square
         $(`#${snakeArr[0]}`).css('background','transparent');
         snakeArr.splice(0,1);
-        console.log(snakeArr);
+        // console.log(snakeArr);
 
       }
       if (direction === 'down') {
@@ -76,22 +81,34 @@ $(document).ready(function(){
         // remove from tail
         $(`#${snakeArr[0]}`).css('background','transparent');
         snakeArr.splice(0,1);
-        console.log(snakeArr);
+        // console.log(snakeArr);
 
       }
       if (direction === 'left') {
         snake--;
-        snakeArr.unshift(snake);
+        snakeArr.push(snake);
         $(`#${snake}`).css('background','green');
         // remove from tail
-        $(`#${snakeArr[3]}`).css('background', 'transparent');
-        snakeArr.splice(3,2);
-        console.log(snakeArr);
-
+        $(`#${snakeArr[0]}`).css('background', 'transparent');
+        snakeArr.splice(0,1);
+        // console.log(snakeArr);
       }
-    }
+
+      if (snakeArr[snakeArr.length-1] === apple ) {
+        snakeArr.push(appleArr[appleArr.length-1]);
+        score+= 10;
+        console.log(score);
+        $('#score').text("Score: " + score);
+        apple = Math.floor(Math.random() * 401);
+        $(`#${apple}`).css('background','red');
+      }
+
+      // console.log(snakeArr[2]);
 
 
+      // if (snakeArr[2] % 20 === 1){
+      //   // console.log('gameover');
+      // }
 
 
     // Keys to press for movement and reassigns variable for function to work
@@ -99,24 +116,25 @@ $(document).ready(function(){
       if (event.keyCode === 37){
         direction = 'left';
         event.preventDefault();
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
       } else if (event.keyCode === 39){
         direction = 'right';
         event.preventDefault();
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
       } else if (event.keyCode === 38){
         direction = 'up';
         event.preventDefault();
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
       } else if (event.keyCode === 40){
         direction = 'down';
         event.preventDefault();
-        console.log(event.keyCode);
+        // console.log(event.keyCode);
       }
     })
 
-  }); //start game function ends
+  }
 
+  }); //start game function ends
 
   // reset button
   $('#reset').click(function(){
