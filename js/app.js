@@ -5,6 +5,8 @@ $(document).ready(function(){
   var $table = $('#snakeBoard');
   var idCounter = 1;
   var colCounter = 0;
+
+  var direction = 'right'; // 'left', 'top', 'bottom'
   // Makes a grid of 400 squares on start-up
   $('#startGame').click(function(){
 
@@ -23,25 +25,95 @@ $(document).ready(function(){
 
     $(this).unbind('click');
 
-// Where the snake head spawns
+    // Where the snake head spawns
     var snake = Math.floor(Math.random() * 401);
     var snakeArr = [];
-// Loops 3 times to create a body of 3
-    for (var i = 0; i < 3; i++) {
+    // Loops 3 times to create a body of 3
+    for (var i = 0; i < 2; i++) {
       snake++;
       snakeArr.push(snake);
+      console.log(snakeArr)
       $(`#${snake}`).css('background','green');
     }
-// Where the snake head spawns
+
+    // Where the snake head spawns
     var apple = Math.floor(Math.random() * 401);
     var appleArr = [];
-// Loops 3 times to create a body of 3
+    // Loops 3 times to create a body of 3
     for (var i = 0; i < 1; i++) {
       apple++;
       snakeArr.push(snake);
       $(`#${apple}`).css('background','red');
     }
 
+    setInterval(moveSnake, 200);
+
+    function moveSnake(){
+      if (direction === 'up') {
+        snake-=20;
+        snakeArr.push(snake);
+        $(`#${snake}`).css('background','green');
+        // remove from tail
+        $(`#${snakeArr[0]}`).css('background','transparent');
+        snakeArr.splice(0,1);
+        console.log(direction);
+        console.log(snakeArr);
+      }
+      if (direction === 'right') {
+        snake++;
+        snakeArr.push(snake);
+        $(`#${snake}`).css('background','green');
+        // remove from tail as it leaves the square
+        $(`#${snakeArr[0]}`).css('background','transparent');
+        snakeArr.splice(0,1);
+        console.log(snakeArr);
+
+      }
+      if (direction === 'down') {
+        snake+=20;
+        snakeArr.push(snake);
+        $(`#${snake}`).css('background','green');
+        // remove from tail
+        $(`#${snakeArr[0]}`).css('background','transparent');
+        snakeArr.splice(0,1);
+        console.log(snakeArr);
+
+      }
+      if (direction === 'left') {
+        snake--;
+        snakeArr.unshift(snake);
+        $(`#${snake}`).css('background','green');
+        // remove from tail
+        $(`#${snakeArr[3]}`).css('background', 'transparent');
+        snakeArr.splice(3,2);
+        console.log(snakeArr);
+
+      }
+    }
+
+
+
+
+    // Keys to press for movement and reassigns variable for function to work
+    $(document).keydown(function(event){
+      if (event.keyCode === 37){
+        direction = 'left';
+        event.preventDefault();
+        console.log(event.keyCode);
+      } else if (event.keyCode === 39){
+        direction = 'right';
+        event.preventDefault();
+        console.log(event.keyCode);
+      } else if (event.keyCode === 38){
+        direction = 'up';
+        event.preventDefault();
+        console.log(event.keyCode);
+      } else if (event.keyCode === 40){
+        direction = 'down';
+        event.preventDefault();
+        console.log(event.keyCode);
+      }
+    })
 
   }); //start game function ends
 
