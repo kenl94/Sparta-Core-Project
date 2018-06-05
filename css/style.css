@@ -1,0 +1,21 @@
+/*
+Bootstrap to style the page
+maybe div with col-12
+inside div of col 3 to show scores, reset and timer
+then col 9 to have game in middle with instructions in a p
+
+or 3-6-3
+ */
+
+#snakeBoard{
+  border: black 1px solid;
+  display: table;
+  background: lightgrey;
+}
+
+.boardPixel {
+  width: 10px;
+  height: 10px;
+  padding: 10px;
+  border: black 1px solid;
+}
