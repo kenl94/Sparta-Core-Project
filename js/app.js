@@ -96,6 +96,7 @@ $(document).ready(function(){
         $('#score').text("Score: " + score);
         apple = Math.floor(Math.random() * 401);
         $(`#${apple}`).css('background','red');
+        console.log(snakeArr);
       }
 
 
