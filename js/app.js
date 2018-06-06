@@ -6,7 +6,6 @@ $(document).ready(function(){
   var idCounter = 1;
   var colCounter = 0;
   var score = 0;
-  var sec = 0;
   var direction = 'right'; // 'left', 'top', 'bottom'
   // Makes a grid of 400 squares on start-up
   $('#startGame').click(function(){
@@ -26,9 +25,11 @@ $(document).ready(function(){
 
     $(this).unbind('click');
 
-    function pad ( val ) { return val > 9 ? 'Timer : ' + val :'Timer: ' + "0" + val; }
+    function timer ( val ) { return val > 9 ? 'Timer : ' + val :'Timer: ' + val; }
+    var sec = 0;
     setInterval( function(){
-      $("#timer").html(pad(++sec));
+      $("#timer").html(timer(sec++));
+
     }, 1000);
 
     // Where the snake head spawns
@@ -51,38 +52,60 @@ $(document).ready(function(){
       $(`#${apple}`).css('background','red');
     }
 
-    setInterval(moveSnake, 200);
-
+    setInterval(moveSnake, 150);
+    //Loops Up
     function moveSnake(){
       if (direction === 'up') {
+        if (snakeArr[snakeArr.length -1] > 0 && snakeArr[snakeArr.length -1] <= 20){
+          snake+= 380;
+          snakeArr.push(snake);
+        } else {
         snake-=20;
         snakeArr.push(snake);
+      }
         $(`#${snake}`).css('background','green');
         // remove from tail
         $(`#${snakeArr[0]}`).css('background','transparent');
         snakeArr.splice(0,1);
       }
+      //Loops Right
       if (direction === 'right') {
-        snake++;
-        snakeArr.push(snake);
+        if (snakeArr[snakeArr.length-1] % 20 === 0) {
+          snake -= 19;
+          snakeArr.push(snake);
+        } else {
+          snake++;
+          snakeArr.push(snake);
+        }
         $(`#${snake}`).css('background','green');
         // remove from tail as it leaves the square
         $(`#${snakeArr[0]}`).css('background','transparent');
         snakeArr.splice(0,1);
-
       }
+      //Loops Down
       if (direction === 'down') {
-        snake+=20;
-        snakeArr.push(snake);
+        if (snakeArr[snakeArr.length - 1] > 380 && snakeArr[snakeArr.length - 1] <= 400 ) {
+          snake -= 380;
+          snakeArr.push(snake);
+        } else {
+          snake+=20;
+          snakeArr.push(snake);
+        }
         $(`#${snake}`).css('background','green');
         // remove from tail
         $(`#${snakeArr[0]}`).css('background','transparent');
         snakeArr.splice(0,1);
 
       }
+      //Loops Left
       if (direction === 'left') {
+        if (snakeArr[snakeArr.length - 1] % 20 === 1){
+          snake+=19;
+          snakeArr.push(snake);
+        } else {
         snake--;
         snakeArr.push(snake);
+      }
         $(`#${snake}`).css('background','green');
         // remove from tail
         $(`#${snakeArr[0]}`).css('background', 'transparent');
@@ -98,13 +121,13 @@ $(document).ready(function(){
         $(`#${apple}`).css('background','red');
         console.log(snakeArr);
         console.log(snake);
-
       }
+      // SNAKE COLLIDES INTO ITSELF AND LOSE GAME
       for (var i = 0; i < snakeArr.length-2; i++) {
         if (snake == snakeArr[i]) {
-          gameOver();
-          console.log(snakeArr[i]);
-          console.log(snakeArr);
+          return gameOver();
+          // console.log(snakeArr[i]);
+          // console.log(snakeArr);
         }
       }
     }
@@ -112,6 +135,7 @@ $(document).ready(function(){
 
     // Keys to press for movement and reassigns variable for function to work
     $(document).keydown(function(event){
+      // ============ LEFT AND RIGHT
       if (event.keyCode === 37 && direction == 'right') {
         direction = 'right';
         event.preventDefault();
@@ -128,6 +152,8 @@ $(document).ready(function(){
         direction = 'right';
         event.preventDefault();
       }
+
+      // ============ UP AND DOWN
       if (event.keyCode === 38 && direction == 'down'){
         direction = 'down';
         event.preventDefault();
@@ -148,19 +174,16 @@ $(document).ready(function(){
       }
     });
 
-      // ============ UP DOWN
-    /* If the direction is left and the key pressed is 39, it should stay left and it isn't supposed to be able to overlap itself
-    if the snake goes to square 40 it should re-appear at square 1 with the same length of arrays
-
-    */
 
 
-
+    // GAMEOVER SCREEN
     function gameOver() {
-      var gameOverText1 = "<h2> Game Over! You scored: " + score + " points</h2>"
+      var gameOverText1 = "<h2> Game Over! You scored: " + score + " points and you survived for " + sec + " seconds </h2>"
       $('#snakeBoard').html(gameOverText1);
+      $('#timer').css('display', 'none');
       clearInterval(sec);
     }
+    // GAMEOVER SCREEN END
 
   }); //start game function ends
 
