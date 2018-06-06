@@ -6,6 +6,7 @@ $(document).ready(function(){
   var idCounter = 1;
   var colCounter = 0;
   var score = 0;
+  var sec = 0;
   var direction = 'right'; // 'left', 'top', 'bottom'
   // Makes a grid of 400 squares on start-up
   $('#startGame').click(function(){
@@ -25,7 +26,6 @@ $(document).ready(function(){
 
     $(this).unbind('click');
 
-    var sec = 0;
     function pad ( val ) { return val > 9 ? 'Timer : ' + val :'Timer: ' + "0" + val; }
     setInterval( function(){
       $("#timer").html(pad(++sec));
@@ -97,29 +97,69 @@ $(document).ready(function(){
         apple = Math.floor(Math.random() * 401);
         $(`#${apple}`).css('background','red');
         console.log(snakeArr);
+        console.log(snake);
+
       }
-
-
-
-      // Keys to press for movement and reassigns variable for function to work
-      $(document).keydown(function(event){
-        if (event.keyCode === 37){
-          direction = 'left';
-          event.preventDefault();
-        } else if (event.keyCode === 39){
-          direction = 'right';
-          event.preventDefault();
-        } else if (event.keyCode === 38){
-          direction = 'up';
-          event.preventDefault();
-
-        } else if (event.keyCode === 40){
-          direction = 'down';
-          event.preventDefault();
-
+      for (var i = 0; i < snakeArr.length-2; i++) {
+        if (snake == snakeArr[i]) {
+          gameOver();
+          console.log(snakeArr[i]);
+          console.log(snakeArr);
         }
-      })
+      }
+    }
 
+
+    // Keys to press for movement and reassigns variable for function to work
+    $(document).keydown(function(event){
+      if (event.keyCode === 37 && direction == 'right') {
+        direction = 'right';
+        event.preventDefault();
+        console.log("can't go left on yourself");
+      } else if (event.keyCode === 37){
+        direction = 'left';
+        event.preventDefault();
+      }
+      if (event.keyCode === 39 && direction == 'left') {
+        direction = 'left';
+        console.log("Can't go right on yourself!");
+        event.preventDefault();
+      } else if (event.keyCode === 39){
+        direction = 'right';
+        event.preventDefault();
+      }
+      if (event.keyCode === 38 && direction == 'down'){
+        direction = 'down';
+        event.preventDefault();
+        console.log("can't go down on yourself")
+      } else if (event.keyCode === 38){
+        direction = 'up';
+        event.preventDefault();
+
+      }
+      if (event.keyCode === 40 && direction == "up" ){
+        direction = 'up';
+        event.preventDefault();
+        console.log("can't go up on yourself");
+      } else if (event.keyCode === 40){
+        direction = 'down';
+        event.preventDefault();
+
+      }
+    });
+
+      // ============ UP DOWN
+    /* If the direction is left and the key pressed is 39, it should stay left and it isn't supposed to be able to overlap itself
+    if the snake goes to square 40 it should re-appear at square 1 with the same length of arrays
+
+    */
+
+
+
+    function gameOver() {
+      var gameOverText1 = "<h2> Game Over! You scored: " + score + " points</h2>"
+      $('#snakeBoard').html(gameOverText1);
+      clearInterval(sec);
     }
 
   }); //start game function ends
