@@ -36,10 +36,9 @@ $(document).ready(function(){
     var snake = Math.floor(Math.random() * 401);
     var snakeArr = [];
     // Loops 3 times to create a body of 3
-    for (var i = 0; i < 2; i++) {
+    for (var i = 0; i < 3; i++) {
       snake++;
       snakeArr.push(snake);
-      console.log(snakeArr)
       $(`#${snake}`).css('background','green');
     }
 
@@ -47,8 +46,12 @@ $(document).ready(function(){
     var apple = Math.floor(Math.random() * 401);
     var appleArr = [];
     // Loops 3 times to create a body of 3
-    for (var i = 0; i < 1; i++) {
-      snakeArr.push(snake);
+
+    for (var i = 0; i <= 1; i++) {
+      if (apple === snakeArr[i]) {
+        apple;
+      }
+      appleArr.push(apple);
       $(`#${apple}`).css('background','red');
     }
 
@@ -60,9 +63,9 @@ $(document).ready(function(){
           snake+= 380;
           snakeArr.push(snake);
         } else {
-        snake-=20;
-        snakeArr.push(snake);
-      }
+          snake-=20;
+          snakeArr.push(snake);
+        }
         $(`#${snake}`).css('background','green');
         // remove from tail
         $(`#${snakeArr[0]}`).css('background','transparent');
@@ -103,9 +106,9 @@ $(document).ready(function(){
           snake+=19;
           snakeArr.push(snake);
         } else {
-        snake--;
-        snakeArr.push(snake);
-      }
+          snake--;
+          snakeArr.push(snake);
+        }
         $(`#${snake}`).css('background','green');
         // remove from tail
         $(`#${snakeArr[0]}`).css('background', 'transparent');
@@ -115,19 +118,20 @@ $(document).ready(function(){
       if (snakeArr[snakeArr.length-1] === apple ) {
         snakeArr.push(appleArr[appleArr.length-1]);
         score+= 10;
-        console.log(score);
         $('#score').text("Score: " + score);
+
         apple = Math.floor(Math.random() * 401);
         $(`#${apple}`).css('background','red');
-        console.log(snakeArr);
-        console.log(snake);
+        for (var i = 0; i <= 1; i++) {
+          if (apple === snakeArr[i]) {
+            apple;
+          }
+        }
       }
       // SNAKE COLLIDES INTO ITSELF AND LOSE GAME
       for (var i = 0; i < snakeArr.length-2; i++) {
         if (snake == snakeArr[i]) {
           return gameOver();
-          // console.log(snakeArr[i]);
-          // console.log(snakeArr);
         }
       }
     }
@@ -139,14 +143,12 @@ $(document).ready(function(){
       if (event.keyCode === 37 && direction == 'right') {
         direction = 'right';
         event.preventDefault();
-        console.log("can't go left on yourself");
       } else if (event.keyCode === 37){
         direction = 'left';
         event.preventDefault();
       }
       if (event.keyCode === 39 && direction == 'left') {
         direction = 'left';
-        console.log("Can't go right on yourself!");
         event.preventDefault();
       } else if (event.keyCode === 39){
         direction = 'right';
@@ -157,7 +159,6 @@ $(document).ready(function(){
       if (event.keyCode === 38 && direction == 'down'){
         direction = 'down';
         event.preventDefault();
-        console.log("can't go down on yourself")
       } else if (event.keyCode === 38){
         direction = 'up';
         event.preventDefault();
@@ -166,7 +167,6 @@ $(document).ready(function(){
       if (event.keyCode === 40 && direction == "up" ){
         direction = 'up';
         event.preventDefault();
-        console.log("can't go up on yourself");
       } else if (event.keyCode === 40){
         direction = 'down';
         event.preventDefault();
