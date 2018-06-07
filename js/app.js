@@ -45,12 +45,7 @@ $(document).ready(function(){
     // Where the snake head spawns
     var apple = Math.floor(Math.random() * 401);
     var appleArr = [];
-    // Loops 3 times to create a body of 3
-
     for (var i = 0; i <= 1; i++) {
-      if (apple === snakeArr[i]) {
-        apple;
-      }
       appleArr.push(apple);
       $(`#${apple}`).css('background','red');
     }
@@ -119,19 +114,15 @@ $(document).ready(function(){
         snakeArr.push(appleArr[appleArr.length-1]);
         score+= 10;
         $('#score').text("Score: " + score);
-
         apple = Math.floor(Math.random() * 401);
         $(`#${apple}`).css('background','red');
-        for (var i = 0; i <= 1; i++) {
-          if (apple === snakeArr[i]) {
-            apple;
-          }
-        }
       }
       // SNAKE COLLIDES INTO ITSELF AND LOSE GAME
       for (var i = 0; i < snakeArr.length-2; i++) {
         if (snake == snakeArr[i]) {
           return gameOver();
+          // console.log(snakeArr[i]);
+          // console.log(snakeArr);
         }
       }
     }
