@@ -9,21 +9,13 @@
     <link rel="stylesheet" href="css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="css/bootstrap-3.3.7-dist/js/bootstrap.min.js" charset="utf-8"></script>
     <script src="js/app.js" charset="utf-8"></script>
-    <title>Document</title>
+    <title>Sparta Snake</title>
   </head>
   <body>
-  <!--
-  If.. reset game button/div with js or reset button in the snake board
-  Should have a timer
-  Should have a points counter
-  Should have instructions below the game
-  Should have a box(div) to store the game
 
-
-  -->
-
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
+        <h1>Snake</h1>
         <div class="col-md-3">
           <button id="startGame"> Start Game </button>
           <button id="reset">Reset</button>
@@ -31,16 +23,17 @@
           <h2 id= "timer"> Timer: 0 </h2>
 
         </div>
-        <div class="col-md-9">
-        <h1>Snake</h1>
-        <table id="snakeBoard" class="snakeBoard">
+        <div class="col-md-6" id="snakeDiv">
+          <table id="snakeBoard" class="snakeBoard">
+            <h2>Instructions</h2>
+            <p>To play the classic game of snake, you would use the arrow keys in order to move the snake around. You collect points through eating the fruit, the longer you survive the more points you get!</p>
 
-        </table>
-        <h2>Instructions</h2>
-        <p>To play the classic game of snake, you would use the arrow keys in order to move the snake around. You collect points through eating the fruit, the longer you survive the more points you get!</p>
+          </table>
+          <div class="col-md-3">
+          </div>
+        </div>
       </div>
     </div>
-    </div>
 
-</body>
+  </body>
 </html>
