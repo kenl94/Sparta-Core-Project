@@ -9,7 +9,6 @@ $(document).ready(function(){
   var direction = 'right'; // 'left', 'top', 'bottom'
   // Makes a grid of 400 squares on start-up
   $('#startGame').click(function(){
-
     for (var i = 0; i < columns; i++) {
       var row = $(`<tr class="snakeRow" id="${ colCounter }"></tr>`);
       colCounter++;
@@ -22,6 +21,7 @@ $(document).ready(function(){
         row.append(col);
       }
     }
+
 
     $(this).unbind('click');
 
@@ -50,7 +50,6 @@ $(document).ready(function(){
       $(`#${apple}`).css('background','red');
     }
 
-    setInterval(moveSnake, 150);
     //Loops Up
     function moveSnake(){
       if (direction === 'up') {
@@ -82,7 +81,7 @@ $(document).ready(function(){
       }
       //Loops Down
       if (direction === 'down') {
-        if (snakeArr[snakeArr.length - 1] > 380 && snakeArr[snakeArr.length - 1] <= 400 ) {
+        if (snakeArr[snakeArr.length - 1] > 380 && snakeArr[snakeArr.length - 1] <= 401 ) {
           snake -= 380;
           snakeArr.push(snake);
         } else {
@@ -121,12 +120,11 @@ $(document).ready(function(){
       for (var i = 0; i < snakeArr.length-2; i++) {
         if (snake == snakeArr[i]) {
           return gameOver();
-          // console.log(snakeArr[i]);
-          // console.log(snakeArr);
         }
       }
     }
 
+    setInterval(moveSnake, 200);
 
     // Keys to press for movement and reassigns variable for function to work
     $(document).keydown(function(event){
@@ -169,7 +167,7 @@ $(document).ready(function(){
 
     // GAMEOVER SCREEN
     function gameOver() {
-      var gameOverText1 = "<h2> Game Over! You scored: " + score + " points and you survived for " + sec + " seconds </h2>"
+      var gameOverText1 = "<h2> Game Over! You survived for  " + sec + " seconds and scored " + score + " points! </h2>"
       $('#snakeBoard').html(gameOverText1);
       $('#timer').css('display', 'none');
       clearInterval(sec);
