@@ -48,3 +48,6 @@ This is because the javascript would read that it has bitten into itself.
 Going forward, I hope to be able to add sounds to the game and a scoreboard to see other players high scores. </br>
 I also hope to be able to make the snake levels for the user to choose. </br>
 I would also add a trigger which depends on the score to make it harder. </br>
+
+### Link to the game
+[You can play the game here!](https://kenl94.github.io/Sparta-Core-Project-One/)
