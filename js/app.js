@@ -8,8 +8,7 @@ $(document).ready(function(){
   var score = 0;
   var direction = 'right'; // 'left', 'top', 'bottom'
   // Makes a grid of 400 squares on start-up
-  $('#startGame').click(function(event){
-    console.log(this.event);
+  $('#startGame').click(function(){
     for (var i = 0; i < columns; i++) {
       var row = $(`<tr class="snakeRow" id="${ colCounter }"></tr>`);
       colCounter++;
@@ -121,8 +120,6 @@ $(document).ready(function(){
       for (var i = 0; i < snakeArr.length-2; i++) {
         if (snake == snakeArr[i]) {
           return gameOver();
-          // console.log(snakeArr[i]);
-          // console.log(snakeArr);
         }
       }
     }
