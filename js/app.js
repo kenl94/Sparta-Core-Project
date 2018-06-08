@@ -124,7 +124,7 @@ $(document).ready(function(){
       }
     }
 
-    setInterval(moveSnake, 150);
+    setInterval(moveSnake, 200);
 
     // Keys to press for movement and reassigns variable for function to work
     $(document).keydown(function(event){
